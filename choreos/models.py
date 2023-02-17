@@ -12,11 +12,6 @@ STYLE_CHOICES = (
     ("heels", "Heels"),
     ("comtemporary", "Comtemporary")
 )
-PRONOUNS_CHOICES = (
-    ("he/him/his", "he/him/his"),
-    ("she/her/hers", "she/her/hers"),
-    ("they/them/theirs", "they/them/theirs")
-)
 
 class Choreography(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -27,10 +22,3 @@ class Choreography(models.Model):
 
     class Meta:
         ordering = ["created"]
-
-class Choreographer(models.Model):
-    name = models.CharField(max_length=30)
-    pronouns = models.CharField(choices=PRONOUNS_CHOICES, max_length=30)
-    based_in = models.CharField(max_length=30)
-    intro = models.TextField()
-    instagram_handle = models.CharField(max_length=30)

@@ -1,22 +1,51 @@
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from choreos.serializers import UserSerializer, GroupSerializer
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from choreos.models import Choreography
+from choreos.serializers import ChoreographySerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+@csrf_exempt
+def choreographies_list(request):
     """
-    API endpoint that allows users to be viewed or edited.
+    List all choreographies, or create a new choreography.
     """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    if request.method == 'GET':
+        choreographies = Choreography.objects.all()
+        serializer = ChoreographySerializer(choreographies, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = ChoreographySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+@csrf_exempt
+def choreography_detail(request, pk):
     """
-    API endpoint that allows groups to be viewed or edited.
+    Retrieve, update or delete a choreography.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    try:
+        choreography = Choreography.objects.get(pk=pk)
+    except Choreography.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = ChoreographySerializer(choreography)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = ChoreographySerializer(choreography, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        choreography.delete()
+        return HttpResponse(status=204)
