@@ -1,14 +1,14 @@
-from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from choreos.models import Choreography, Choreographer, STYLE_CHOICES, PRONOUNS_CHOICES
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class ChoreographySerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
+        model = Choreography
+        fields = ['id', 'created', 'choreographer', 'music_title', 'style', 'video_url']
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class ChoreographerSerializer(serializers.Serializer):
     class Meta:
-        model = Group
-        fields = ['url', 'name']
+        model = Choreographer
+        fields = ['id', 'name', 'pronouns', 'based_in', 'intro', 'instagram_handle']

@@ -22,7 +22,6 @@ class Choreography(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     choreographer = models.CharField(max_length=30)
     music_title = models.CharField(max_length=100)
-    music_artist = models.CharField(max_length=30)
     style = models.CharField(choices=STYLE_CHOICES, max_length=30)
     video_url = models.URLField()
 
