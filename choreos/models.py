@@ -10,7 +10,7 @@ STYLE_CHOICES = (
     ("afro", "Afro"),
     ("dancehall", "Dancehall"),
     ("heels", "Heels"),
-    ("comtemporary", "Comtemporary")
+    ("contemporary", "Contemporary")
 )
 
 class Choreography(models.Model):
@@ -18,7 +18,12 @@ class Choreography(models.Model):
     choreographer = models.CharField(max_length=30)
     music_title = models.CharField(max_length=100)
     style = models.CharField(choices=STYLE_CHOICES, max_length=30)
-    video_url = models.URLField()
+    video_url = models.URLField(max_length=100, blank=True, default='')
+    # authentication
+    owner = models.ForeignKey("auth.User", related_name="choreographies", on_delete=models.CASCADE)
 
     class Meta:
         ordering = ["created"]
+    
+    # def save(self, *args, **kwargs):
+    #     super(Choreography, self).save(*args, **kwargs)
