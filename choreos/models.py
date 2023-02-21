@@ -10,7 +10,8 @@ STYLE_CHOICES = (
     ("afro", "Afro"),
     ("dancehall", "Dancehall"),
     ("heels", "Heels"),
-    ("contemporary", "Contemporary")
+    ("contemporary", "Contemporary"),
+    ("k-pop", "K-Pop")
 )
 
 class Choreography(models.Model):
