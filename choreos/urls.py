@@ -1,14 +1,13 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from choreos import views
-from rest_framework.urlpatterns import format_suffix_patterns
 
-# API endpoints
+# create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r"choreos", views.ChoreographyViewSet, basename="choreography")
+router.register(r"users", views.UserViewSet, basename="user")
+
+# the API urls are now determined automatically by the router.
 urlpatterns = [
-    path('', views.api_root),
-    path('choreos/', views.ChoreographyList.as_view(), name="choreography-list"),
-    path('choreos/<int:pk>/', views.ChoreographyDetail.as_view(), name="choreography-detail"),
-    path('users/', views.UserList.as_view(), name="user-list"),
-    path('users/<int:pk>/', views.UserDetail.as_view(), name="user-detail"),
+    path('', include(router.urls)),
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
