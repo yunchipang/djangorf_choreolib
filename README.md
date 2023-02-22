@@ -1,11 +1,24 @@
-# djangorf_choreolib
+# Choreography Library API
 
-A web API built with Django REST Framework which serves as a choreography library.
+## about
+This is an API for a choreography library application that allows users to record and search pieces of choreographies created by multiple choreographers. This API is developed using the Django REST Framework. I created this project to teach myself DRF and express my love for dancing.
+
+## features
+With this API, you can...
+- create user account - registration
+- login and logout - authentication & authorization
+- create, view, update, and delete a piece of choreography in your user account
 
 ## run the app
 
-```
-python manage.py runserver
+```bash
+$ git clone https://github.com/yunchipang/drf-choreo-library.git
+$ cd drf-choreo-library
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ python manage.py makemigrations
+$ python manage.py migrate
+$ python manage.py runserver
 ```
 
 ## REST API
