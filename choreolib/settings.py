@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-_0&eqwamye5folgaj=c9ri51om7-sf6#5&36wob*9q^u4gsw$9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# allow traffic from all resources
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -122,4 +123,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
+}
+
+# added to debug docker container running on EC2 instance
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    }
 }
