@@ -1,7 +1,8 @@
 # Choreography Library API
 
 ## about
-This is an API for a choreography library application that allows users to record and search pieces of choreographies created by multiple choreographers. This API is developed using the Django REST Framework. I created this project to teach myself DRF and express my love for dancing. The application is containerized using Docker and deployed on AWS EC2.
+This is an API for a choreography library application that allows users to record and search pieces of choreographies created by multiple choreographers. This API is developed using the Django REST Framework. I created this project to teach myself DRF and express my love for dancing. The application is containerized using Docker and deployed to AWS EC2.
+- current endpoint: http://ec2-54-183-149-150.us-west-1.compute.amazonaws.com:8000/ (I am working on redirecting to custom domain!) 
 
 ## features
 With this API, you can...
