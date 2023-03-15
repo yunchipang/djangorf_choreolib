@@ -12,6 +12,8 @@ from rest_framework.reverse import reverse
 from rest_framework import viewsets
 from rest_framework.decorators import action
 
+from rest_framework import status
+
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -19,6 +21,24 @@ def api_root(request, format=None):
         'users': reverse('user-list', request=request, format=format),
         'choreos': reverse('choreography-list', request=request, format=format)
     })
+
+
+@api_view(['POST'])
+def register_user(request):
+    if request.method == 'POST':
+        # get username and password from request data
+        username = request.data.get('username')
+        password = request.data.get('password')
+        
+        # create new user object
+        user = User.objects.create_user(username=username, password=password)
+        
+        # return success response
+        return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
+    else:
+        # return error response for invalid request method
+        return Response({'message': 'Invalid request method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        
 
 class ChoreographyViewSet(viewsets.ModelViewSet):
     """
