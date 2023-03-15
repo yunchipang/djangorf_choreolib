@@ -27,7 +27,18 @@ $ python manage.py runserver
 
 The REST API to the `choreos` app is described below.
 
-### 1. get list of choreos
+### 1. register yourself and login
+
+visit `/register` endpoint and post your username and password. For example, 
+```
+{
+    "username": "newuserabc", 
+    "password": "password123",
+}
+```
+After the new user has been created, you will be able to log in using this pair of username and password.
+
+### 2. get list of choreos
 #### request
 
 `GET /choreos/`
@@ -52,7 +63,7 @@ Cross-Origin-Opener-Policy: same-origin
 []
 ```
 
-### 2. create a new choreo
+### 3. create a new choreo
 #### request
 `POST /choreos/`
 
@@ -77,7 +88,7 @@ Cross-Origin-Opener-Policy: same-origin
 {"id":3,"created":"2023-02-21T07:12:24.058032Z","choreographer":"Leejung Lee","music_title":"LALISA","style":"k-pop","video_url":"","owner":"yunchipang"}
 ```
 
-### 3. get a specific choreo
+### 4. get a specific choreo
 #### request
 `GET /choreos/id/`
 
